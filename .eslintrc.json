@@ -21,7 +21,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "eqeqeq": 2
+        "eqeqeq": 0
     },
     "settings": {
         "react": {

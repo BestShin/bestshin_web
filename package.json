@@ -35,7 +35,7 @@
     "deploy:win32": "electron-builder --win --ia32",
     "deploy:win64": "electron-builder --win --x64",
     "deploy:win": "yarn deploy:win32 && yarn deploy:win64",
-    "eslint": "eslint \"src/**/*.{tsx,ts,js}\"",
+    "eslint": "eslint \"src/**/*.{tsx,ts,js,jsx}\"",
     "prepare": "husky install"
   },
   "build": {
@@ -100,5 +100,10 @@
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "wait-on": "^6.0.1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix"
+    ]
   }
 }

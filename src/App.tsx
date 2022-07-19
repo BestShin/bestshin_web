@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 
 function App() {
-
   const lintTestFnc = () => {
     let a = 1;
     let b = 2;
