@@ -34,7 +34,9 @@
     "deploy:xos": "electron-builder --mac",
     "deploy:win32": "electron-builder --win --ia32",
     "deploy:win64": "electron-builder --win --x64",
-    "deploy:win": "yarn deploy:win32 && yarn deploy:win64"
+    "deploy:win": "yarn deploy:win32 && yarn deploy:win64",
+    "eslint": "eslint \"src/**/*.{tsx,ts,js}\"",
+    "prepare": "husky install"
   },
   "build": {
     "productName": "NB",
@@ -87,10 +89,16 @@
     ]
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/parser": "^5.30.7",
     "concurrently": "^7.2.2",
     "cross-env": "^7.0.3",
     "electron": "^19.0.8",
     "electron-builder": "^23.1.0",
+    "eslint": "^8.20.0",
+    "eslint-plugin-react": "^7.30.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "wait-on": "^6.0.1"
   }
 }
