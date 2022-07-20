@@ -11,7 +11,7 @@ function LoginPage(): ReactElement {
   };
 
   return (
-    <PageWrapper >
+    <PageWrapper>
       <LoginBtn onClick={onClickLoginBtn}>Login in with Github</LoginBtn>
     </PageWrapper>
   );
