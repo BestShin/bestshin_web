@@ -32,7 +32,7 @@
         "comma-dangle": 0,
         "import/no-unresolved": 0,
         "import/extensions": 0,
-        "react/jsx-tag-spacing": 0,
+        "react/jsx-tag-spacing": 0, // <ReactElement />처럼 /> 전에 spacing 들어가야하는 rule 제거  
 
         // 추가적으로 필요한 rule
         "quotes": [2, "single"], // single-quote 사용

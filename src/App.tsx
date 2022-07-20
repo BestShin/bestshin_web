@@ -4,13 +4,13 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-import MainPage from './page/MainPage';
+import LoginPage from './page/LoginPage';
 
 function App(): ReactElement {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<MainPage/>}/>
+        <Route path='/' element={<LoginPage/>}/>
       </Routes>
     </Router>
   );
