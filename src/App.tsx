@@ -1,10 +1,18 @@
 import React, { ReactElement } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom';
+import MainPage from './page/MainPage';
 
 function App(): ReactElement {
   return (
-    <div className='App'>
-      <span>Hello MUG!</span>
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<MainPage/>}/>
+      </Routes>
+    </Router>
   );
 }
 
