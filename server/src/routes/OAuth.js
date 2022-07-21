@@ -1,31 +1,38 @@
 const router = require('express').Router();
-const { jwtauth } = require('../services/JWTAuth'); // JWT token validation check.
+const { URLSearchParams } = require('url');
+const config = require('../config');
+const githubAPI = require('../apis/githubAPI');
+const { sign } = require('../modules/jwt'); // JWT token validation check.
 
-router.post('/token', (req, res) => {
-  const auth_code = req.body.data.code;
+router.post('/token', async (req, res) => {
+  const { oauthCode } = req.body;
 
-  /* TODO 신동준 | client에서 보낸 OAuth code를 이용해서 github OAuth access_token 요청.
-     access_token 요청 성공 -> jwt 토큰 생성 후 session에 jwt 토큰을 key값으로 OAuth access_token을 value로 저장.
-     client에 jwt token response.
-  */
+  const response = await githubAPI.createAccessToken(
+    config.OAuth.client_id,
+    config.OAuth.client_secret,
+    oauthCode
+  );
 
-  // const token = jwt.sign(
-  //   {
-  //     name: adminInfo.name,
-  //   },
-  //   SECRET_KEY,
-  //   {
-  //     expiresIn: '600m',
-  //     issuer: 'DongJoon',
-  //   }
-  // );
+  let params = new URLSearchParams(response);
 
-  // return res.status(200).json({
-  //   code: 200,
-  //   message: 'token is issued.',
-  //   token: token,
-  //   name: adminInfo.name,
-  // });
+  if (params.has('access_token')) {
+    const token = sign(
+      params.get('access_token'),
+      params.get('scope'),
+      params.get('token_type')
+    );
+
+    return res.status(200).json({
+      code: 200,
+      message: 'JWT token is issued.',
+      token,
+    });
+  } else {
+    return res.status(401).json({
+      code: 401,
+      message: params.get('error_description'),
+    });
+  }
 });
 
 module.exports = router;
