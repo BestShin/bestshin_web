@@ -40,7 +40,9 @@
     "@typescript-eslint/array-type": [2, { "default": "generic" }], // Array<T> 형식으로 쓰기
     "@typescript-eslint/type-annotation-spacing": 2, // : void 처럼 타입 기입 전에 whitespace
     "@typescript-eslint/explicit-function-return-type": 2, // return type 명시하기
-    "@typescript-eslint/no-unused-vars": ["off"]
+    "@typescript-eslint/no-unused-vars": ["off"],
+    "implicit-arrow-linebreak": 0,
+    "import/prefer-default-export": 0
   },
   "settings": {
     "react": {
