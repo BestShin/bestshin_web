@@ -14,4 +14,19 @@ module.exports = {
 
     return response.data;
   },
+  createUserRepo: async (access_token, repo_name) => {
+    const response = await axios.post(
+      'https://api.github.com/user/repos',
+      {
+        name: repo_name,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+
+    return response.data;
+  },
 };

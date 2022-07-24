@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const OAuthRouter = require('./routes/OAuth');
+const repoRouter = require('./routes/repo');
 const healthCheckRouter = require('./routes/healthCheck');
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/api/oauth', OAuthRouter);
+app.use('/api/repo', repoRouter);
 app.use('/healthz', healthCheckRouter);
 
 app.listen(port, function () {

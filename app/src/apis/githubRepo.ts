@@ -1,16 +1,13 @@
 import { AxiosResponse } from 'axios';
 import { post } from '../util/api';
 
-export const createLoginToken = async (
-  oauthCode: string
-): Promise<AxiosResponse> => {
+export const createUserRepo = async (name: string): Promise<AxiosResponse> => {
   const response = await post(
-    '/api/oauth/token',
+    '/api/repo',
     {
-      oauthCode,
+      name,
     },
     {}
   );
-
   return response;
 };

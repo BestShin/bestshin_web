@@ -4,7 +4,6 @@ const config = require('../config');
 module.exports = {
   auth: (req, res, next) => {
     const token = req.headers['x-access-token'] || req.body.token;
-
     if (!token)
       return res.status(403).json({
         code: 403,
@@ -17,8 +16,12 @@ module.exports = {
           code: 401,
           message: `validation failed. error: ${err}`,
         });
-      console.log(decoded); // TODO: 신동준 | jwt token을 decode해서 oauth access_token이 나오는지 확인하기.
-      return next(); // TODO : 신동준 | oauth access_token으로 디코딩되면 콜백에 넘겨주자. -> github api request
+
+      req.data = {
+        name: req.body.name,
+        access_token: decoded.access_token,
+      };
+      return next();
     });
   },
   sign: (access_token, scope, token_type) => {
