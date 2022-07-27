@@ -4,6 +4,7 @@
 @DJ_id = ehdwns1516
 @MW_id = woasidh
 @SM_id = sumin1125
+
 ###############################################################################
 
 # server 상태 확인
@@ -44,60 +45,6 @@ Content-Type: {{contentType}}
   "repo": "{{repo}}"
 }
 
-
-###############################################################################
-
-# repository root의 directory 정보 요청
-# @name get-repository-root-info
-# @prompt owner
-# @prompt repo
-
-GET http://{{host}}/api/repo/{{owner}}/{{repo}}/contents HTTP/1.1
-x-access-token: {{JWT_TOKEN}}
-
-###############################################################################
-
-# repository path의 directory or file 정보 요청
-# @name get-repository-path-info
-# @prompt owner
-# @prompt repo
-# @prompt path
-
-GET http://{{host}}/api/repo/{{owner}}/{{repo}}/contents/{{path}} HTTP/1.1
-x-access-token: {{JWT_TOKEN}}
-
-###############################################################################
-
-# repository tree sha 생성 -> R&D가 필요함. 커밋과 관련된 api임.
-# @name create-repository-tree-sha-테스트중
-# @prompt owner
-# @prompt repo
-# @prompt path
-# @prompt type : file or dir
-# @prompt sha
-
-POST http://{{host}}/api/repo/{{owner}}/{{repo}}/git/trees HTTP/1.1
-x-access-token: {{JWT_TOKEN}}
-Content-Type: {{contentType}}
-
-{
-  "path": "{{path}}",
-  "type": "{{type}}",
-  "sha": "{{sha}}"
-}
-
-###############################################################################
-
-# repository tree 구조 요청
-# sha는 @get-repository-master-commit-histries를 통해 최상단 sha(root sha임)을 넣어주면 된다.
-# @name get-repository-tree
-# @prompt owner
-# @prompt repo
-# @prompt sha
-
-GET http://{{host}}/api/repo/{{owner}}/{{repo}}/git/trees/{{sha}} HTTP/1.1
-x-access-token: {{JWT_TOKEN}}
-
 ###############################################################################
 
 # repository에 파일 커밋 & 푸시
@@ -124,27 +71,24 @@ Content-Type: {{contentType}}
 
 ###############################################################################
 
-# repository에 파일 삭제
-# file_sha는 @get-repository-root-info or @get-repository-path-info or @get-repository-tree로 알아보자.
-# @name delete-repository-file-테스트중
+# repository path의 directory or file 정보 요청
+# @name get-repository-path-info
 # @prompt owner
 # @prompt repo
 # @prompt path
-# @prompt message
-# @prompt committer
-# @prompt committer_email
-# @prompt file_sha
 
-DELETE http://{{host}}/api/repo/{{owner}}/{{repo}}/contents/{{path}} HTTP/1.1
+GET http://{{host}}/api/repo/{{owner}}/{{repo}}/contents/{{path}} HTTP/1.1
 x-access-token: {{JWT_TOKEN}}
-Content-Type: {{contentType}}
 
-{
-  "message": "{{message}}",
-  "committer": "{{committer}}",
-  "committer_email": "{{committer_email}}",
-  "sha": "{{file_sha}}"
-}
+###############################################################################
+
+# repository root의 directory 정보 요청
+# @name get-repository-root-info
+# @prompt owner
+# @prompt repo
+
+GET http://{{host}}/api/repo/{{owner}}/{{repo}}/contents HTTP/1.1
+x-access-token: {{JWT_TOKEN}}
 
 ###############################################################################
 
@@ -163,6 +107,18 @@ Content-Type: {{contentType}}
 {
   "permission": "{{permission}}"
 }
+
+###############################################################################
+
+# repository tree 구조 요청
+# sha는 @get-repository-master-commit-histries를 통해 최상단 sha(root sha임)을 넣어주면 된다.
+# @name get-repository-tree
+# @prompt owner
+# @prompt repo
+# @prompt sha
+
+GET http://{{host}}/api/repo/{{owner}}/{{repo}}/git/trees/{{sha}} HTTP/1.1
+x-access-token: {{JWT_TOKEN}}
 
 ###############################################################################
 
@@ -200,3 +156,46 @@ x-access-token: {{JWT_TOKEN}}
 GET http://{{host}}/api/repo/{{owner}}/{{repo}}/commits/{{per_page}}/{{page}}/{{branch_sha}} HTTP/1.1
 x-access-token: {{JWT_TOKEN}}
 
+###############################################################################
+
+# repository에 파일 삭제
+# file_sha는 @get-repository-root-info or @get-repository-path-info or @get-repository-tree로 알아보자.
+# @name delete-repository-file-테스트중
+# @prompt owner
+# @prompt repo
+# @prompt path
+# @prompt message
+# @prompt committer
+# @prompt committer_email
+# @prompt file_sha
+
+DELETE http://{{host}}/api/repo/{{owner}}/{{repo}}/contents/{{path}} HTTP/1.1
+x-access-token: {{JWT_TOKEN}}
+Content-Type: {{contentType}}
+
+{
+  "message": "{{message}}",
+  "committer": "{{committer}}",
+  "committer_email": "{{committer_email}}",
+  "sha": "{{file_sha}}"
+}
+
+###############################################################################
+
+# repository tree sha 생성 -> R&D가 필요함. 커밋과 관련된 api임.
+# @name create-repository-tree-sha-테스트중
+# @prompt owner
+# @prompt repo
+# @prompt path
+# @prompt type : file or dir
+# @prompt sha
+
+POST http://{{host}}/api/repo/{{owner}}/{{repo}}/git/trees HTTP/1.1
+x-access-token: {{JWT_TOKEN}}
+Content-Type: {{contentType}}
+
+{
+  "path": "{{path}}",
+  "type": "{{type}}",
+  "sha": "{{sha}}"
+}

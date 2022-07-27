@@ -127,7 +127,7 @@ router.delete('/:owner/:repo/contents/:path', auth, async (req, res) => {
     );
     return res.send(response);
   } catch (error) {
-    return res.status(error.response.status).send(error);
+    return res.send(error.response.status).send(error);
   }
 });
 
