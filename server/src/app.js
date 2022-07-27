@@ -3,7 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const OAuthRouter = require('./routes/OAuth');
-const repoRouter = require('./routes/repo');
+const repoRouter = require('./routes/repository');
 const healthCheckRouter = require('./routes/healthCheck');
 
 const app = express();

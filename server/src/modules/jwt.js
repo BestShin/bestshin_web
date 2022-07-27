@@ -18,12 +18,12 @@ module.exports = {
         });
 
       req.data = {
-        name: req.body.name,
         access_token: decoded.access_token,
       };
       return next();
     });
   },
+
   sign: (access_token, scope, token_type) => {
     return jwt.sign(
       {

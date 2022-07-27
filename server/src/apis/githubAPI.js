@@ -14,6 +14,7 @@ module.exports = {
 
     return response.data;
   },
+
   createUserRepo: async (access_token, repo_name) => {
     const response = await axios.post(
       'https://api.github.com/user/repos',
@@ -27,6 +28,61 @@ module.exports = {
       }
     );
 
+    return response.data;
+  },
+
+  getUserRepoContents: async (access_token, owner, repo_name, path) => {
+    console.log(access_token, owner, repo_name, path);
+    const response = await axios.get(
+      `https://api.github.com/repos/${owner}/${repo_name}/contents/${path}?recursive=1`,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+    return response.data;
+  },
+
+  createUserRepoTreeSHA: async (access_token, owner, repo_name, sha) => {
+    const response = await axios.post(
+      `https://api.github.com/repos/${owner}/${repo_name}/git/trees`,
+      {
+        owner,
+        repo: repo_name,
+        base_tree: sha,
+        tree: [
+          {
+            path: '/packages',
+            mode: '040000',
+            type: 'dir',
+            sha: sha,
+          },
+        ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+
+    return response.data;
+  },
+
+  getUserRepoTree: async (access_token, owner, repo_name, sha) => {
+    console.log('tree');
+    console.log(access_token, owner, repo_name, sha);
+    const response = await axios.get(
+      `https://api.github.com/repos/${owner}/${repo_name}/git/trees/${sha}`,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+
+    console.log(response);
     return response.data;
   },
 };
