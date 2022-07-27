@@ -1,2 +1,2 @@
 export * from './login';
-export * from './githubRepo';
+export * from './repository';

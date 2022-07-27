@@ -1,44 +1,24 @@
-import React, { ReactElement, useEffect, useState } from 'react';
-import { createLoginToken, createUserRepo } from '../../apis';
+import React, { ReactElement, useEffect } from 'react';
+import { createLoginToken } from '../../apis';
 
 function LoginCallbackPage(): ReactElement {
-  const [repoName, setRepoName] = useState('');
-  const onChangeRepoName = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setRepoName(e.target.value);
-  };
-  const onClickCreateRepo = async (): Promise<any> => {
-    try {
-      const response = await createUserRepo(repoName);
-      alert('repo 생성 성공');
-      console.log(response);
-    } catch (error) {
-      alert('repo 생성 실패');
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     const url: URL = new URL(window.location.href);
     const authorizationCode: string | null = url.searchParams.get('code');
-    if (authorizationCode) {
+
+    if (authorizationCode && !localStorage.getItem('jwtToken')) {
       createLoginToken(authorizationCode)
         .then((response) => {
           localStorage.setItem('jwtToken', response.data.token);
-          console.log(response.data.token);
+          // TODO: 신동준 | MainPage로 Routing.
         })
-        .catch((error) => {
-          console.log(error.response.data.message);
+        .catch(() => {
+          // TODO: 신동준 | error 사용자에게 어떻게 보여줄 것인지 생각.
         });
     }
   }, []);
-  return (
-    <div>
-      <input value={repoName} onChange={onChangeRepoName} />
-      <button type='button' onClick={onClickCreateRepo}>
-        Repo 생성
-      </button>
-    </div>
-  );
+
+  return <div>Loading...</div>;
 }
 
 export default LoginCallbackPage;
