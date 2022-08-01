@@ -125,9 +125,10 @@ router.delete('/:owner/:repo/contents/:path', auth, async (req, res) => {
       req.body.committer_email,
       req.body.sha
     );
+
     return res.send(response);
   } catch (error) {
-    return res.send(error.response.status).send(error);
+    return res.status(error.response.status).send(error);
   }
 });
 
@@ -156,6 +157,7 @@ router.get('/:owner/:repo/branches', auth, async (req, res) => {
 
     return res.send(response);
   } catch (error) {
+    console.log(error);
     return res.status(error.response.status).send(error);
   }
 });

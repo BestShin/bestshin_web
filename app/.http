@@ -160,7 +160,7 @@ x-access-token: {{JWT_TOKEN}}
 
 # repository에 파일 삭제
 # file_sha는 @get-repository-root-info or @get-repository-path-info or @get-repository-tree로 알아보자.
-# @name delete-repository-file-테스트중
+# @name delete-repository-file
 # @prompt owner
 # @prompt repo
 # @prompt path

@@ -126,22 +126,32 @@ module.exports = {
     committer_email,
     sha
   ) => {
+    console.log(
+      access_token,
+      owner,
+      repo,
+      path,
+      message,
+      committer,
+      committer_email,
+      sha
+    );
     const response = await axios.delete(
       `https://api.github.com/repos/${owner}/${repo}/contents/${path}`,
       {
-        owner,
-        repo,
-        path,
-        message,
-        committer: {
-          name: committer,
-          email: committer_email,
-        },
-        sha,
-      },
-      {
         headers: {
           Authorization: `Bearer ${access_token}`,
+        },
+        data: {
+          owner,
+          repo,
+          path,
+          message,
+          committer: {
+            name: committer,
+            email: committer_email,
+          },
+          sha,
         },
       }
     );
